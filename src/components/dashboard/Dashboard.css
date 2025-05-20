@@ -1,0 +1,61 @@
+.dashboard {
+    padding: 4rem 2rem;
+    background: linear-gradient(to right, #001c30, #002f4b);
+    color: white;
+    min-height: 100vh;
+    text-align: center;
+  }
+  
+  .dashboard-title {
+    font-size: 2.4rem;
+    margin-bottom: 3rem;
+    font-weight: 600;
+    color: #ffce00;
+  }
+  
+  .options-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+  }
+  
+  .option-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: 20px;
+    width: 300px;
+    height: 220px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 30px rgba(0,0,0,0.2);
+  }
+  
+  .option-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 40px rgba(255, 206, 0, 0.3);
+  }
+  
+  .option-card h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+  
+  .option-card p {
+    font-size: 1rem;
+    color: #ddd;
+  }
+  
+  .coming-soon {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  .dashboard-sub {
+    font-size: 1.2rem;
+    color: #eee;
+    margin-bottom: 2rem;
+    font-style: italic;
+  }
+  
+  
