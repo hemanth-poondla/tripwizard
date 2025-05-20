@@ -1,11 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './SectionStyles.css';
 
-export default function MultiSelectCardSection({ title, subtitle, options, selected, setSelected }) {
+export default function MultiSelectCardSection({
+  title,
+  subtitle,
+  options,
+  selected,
+  setSelected,
+  singleSelect = false,
+  sectionKey
+}) {
+  useEffect(() => {
+    const saved = localStorage.getItem(sectionKey);
+    if (saved) {
+      setSelected(JSON.parse(saved));
+    }
+  }, [sectionKey, setSelected]);
+
+  useEffect(() => {
+    localStorage.setItem(sectionKey, JSON.stringify(selected));
+  }, [selected, sectionKey]);
+
   const toggleOption = (val) => {
-    setSelected((prev) =>
-      prev.includes(val) ? prev.filter((v) => v !== val) : [...prev, val]
-    );
+    if (singleSelect) {
+      setSelected([val]);
+    } else {
+      setSelected((prev) =>
+        prev.includes(val) ? prev.filter((v) => v !== val) : [...prev, val]
+      );
+    }
   };
 
   return (
