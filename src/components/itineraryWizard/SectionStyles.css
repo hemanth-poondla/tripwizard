@@ -1,0 +1,56 @@
+.section-block {
+  padding: 2rem;
+  max-width: 900px;
+  margin: auto;
+  color: #222;
+  text-align: center;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+}
+
+.section-block h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: #222;
+}
+
+.section-sub {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  color: #555;
+}
+
+.card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.card {
+  background: #f1f1f1;
+  border: 2px solid transparent;
+  padding: 1rem 1.2rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  min-width: 140px;
+  color: #333;
+  text-align: center;
+}
+
+.card:hover {
+  background-color: #fafafa;
+  border-color: #888;
+}
+
+.card.selected {
+  background: linear-gradient(135deg, #ffcc70, #ff8a00);
+  color: white;
+  border-color: #ff8a00;
+  font-weight: bold;
+  transform: scale(1.05);
+}

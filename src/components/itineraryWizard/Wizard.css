@@ -1,10 +1,31 @@
 .wizard-page {
-    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
     height: 100vh;
     padding: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background 0.4s ease;
+  }
+  
+  .wizard-page.default {
+    background: linear-gradient(to right, #1a1a1a, #333);
+    color: white;
+  }
+  .wizard-page.adventure {
+    background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+    color: #eee;
+  }
+  .wizard-page.relaxation {
+    background: linear-gradient(to right, #ffe0ac, #ffb347);
+    color: #222;
+  }
+  .wizard-page.culture {
+    background: linear-gradient(to right, #d4af37, #a67c00);
+    color: #111;
+  }
+  .wizard-page.nightlife {
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    color: #fff;
   }
   
   .chatbox {
@@ -14,55 +35,36 @@
     border-radius: 20px;
     width: 90%;
     max-width: 600px;
-    color: white;
     box-shadow: 0 0 40px rgba(0,0,0,0.3);
   }
   
   .chat-bubble.bot {
-    background: #ffaa00;
-    color: black;
+    background: rgba(255,255,255,0.1);
     padding: 1rem 1.5rem;
     border-radius: 16px;
     margin-bottom: 2rem;
-    max-width: 90%;
     font-weight: 500;
     font-size: 1.1rem;
+    backdrop-filter: blur(3px);
   }
   
   .input-area {
     display: flex;
     gap: 1rem;
   }
-  
   .input-area input {
     flex: 1;
     padding: 1rem;
     border-radius: 10px;
     border: none;
-    outline: none;
     font-size: 1rem;
   }
-  
   .input-area button {
     padding: 1rem 1.2rem;
+    border-radius: 10px;
     background: #ffaa00;
     color: black;
-    font-size: 1.1rem;
-    border-radius: 10px;
     border: none;
     cursor: pointer;
-  }
-  
-  .summary-box {
-    background: rgba(255,255,255,0.1);
-    padding: 1.5rem;
-    border-radius: 12px;
-    margin-top: 1rem;
-    color: #eee;
-  }
-  
-  .summary-box h3 {
-    margin-bottom: 1rem;
-    color: #ffce00;
   }
   
