@@ -16,6 +16,7 @@ export default function Wizard() {
   const [food, setFood] = useState([]);
   const [languages, setLanguages] = useState([]);
   const [theme, setTheme] = useState("default");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (vibes.includes("adventure")) setTheme("adventure");
@@ -30,62 +31,35 @@ export default function Wizard() {
 They prefer food styles like ${food.join(", ")} and speak ${languages.join(", ")}.`;
   };
 
+  const handleGenerate = () => {
+    setLoading(true);
+    setTimeout(() => {
+      alert(generatePrompt());
+      setLoading(false);
+    }, 1500);
+  };
+
   const handleLogout = () => {
     localStorage.clear();
-    window.location.reload();
+    window.location.href = "/login";
   };
 
   return (
     <div className={`wizard-page ${theme}`}>
-      <button onClick={handleLogout} className="btn-cta danger">Logout</button>
+      <MultiSelectCardSection title="Who's coming with you?" options={groupOptions} selected={groupType} setSelected={setGroupType} sectionKey="groupType" />
+      <MultiSelectCardSection title="What's your vibe?" options={travelVibeOptions} selected={vibes} setSelected={setVibes} sectionKey="vibes" />
+      <MultiSelectCardSection title="Budget?" options={budgetOptions} selected={budget} setSelected={setBudget} sectionKey="budget" singleSelect={true} />
+      <MultiSelectCardSection title="Food Preferences?" options={foodOptions} selected={food} setSelected={setFood} sectionKey="food" />
+      <MultiSelectCardSection title="Preferred Language?" options={languageOptions} selected={languages} setSelected={setLanguages} sectionKey="languages" />
 
-      <MultiSelectCardSection
-        title="Who's coming with you?"
-        options={groupOptions}
-        selected={groupType}
-        setSelected={setGroupType}
-        sectionKey="groupType"
-      />
-
-      <MultiSelectCardSection
-        title="What's your vibe?"
-        options={travelVibeOptions}
-        selected={vibes}
-        setSelected={setVibes}
-        sectionKey="vibes"
-      />
-
-      <MultiSelectCardSection
-        title="Budget?"
-        options={budgetOptions}
-        selected={budget}
-        setSelected={setBudget}
-        sectionKey="budget"
-        singleSelect={true}
-      />
-
-      <MultiSelectCardSection
-        title="Food Preferences?"
-        options={foodOptions}
-        selected={food}
-        setSelected={setFood}
-        sectionKey="food"
-      />
-
-      <MultiSelectCardSection
-        title="Preferred Language?"
-        options={languageOptions}
-        selected={languages}
-        setSelected={setLanguages}
-        sectionKey="languages"
-      />
-
-      <button
-        onClick={() => alert(generatePrompt())}
-        className="btn-cta"
-      >
-        Generate My Trip 🌍
-      </button>
+      {loading ? (
+        <div className="spinner"></div>
+      ) : (
+        <>
+          <button className="corner-button" onClick={handleGenerate} title="Generate My Trip">🧭</button>
+          <button className="corner-button logout" onClick={handleLogout} title="Logout">⏻</button>
+        </>
+      )}
     </div>
   );
 }
