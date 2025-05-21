@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+
+import React, { useState, useEffect, useContext } from 'react';
 import MultiSelectCardSection from './MultiSelectCardSection';
 import {
   groupOptions,
@@ -8,6 +9,9 @@ import {
   languageOptions
 } from './optionsData';
 import './SectionStyles.css';
+import { ThemeContext } from '../../context/ThemeContext';
+import { getAuth } from 'firebase/auth';
+import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore';
 
 export default function Wizard() {
   const [groupType, setGroupType] = useState([]);
@@ -15,24 +19,58 @@ export default function Wizard() {
   const [budget, setBudget] = useState([]);
   const [food, setFood] = useState([]);
   const [languages, setLanguages] = useState([]);
-  const [theme, setTheme] = useState("default");
   const [loading, setLoading] = useState(false);
 
+  const { theme, updateTheme } = useContext(ThemeContext);
+  const db = getFirestore();
+  const auth = getAuth();
+  const user = auth.currentUser;
+
   useEffect(() => {
-    if (vibes.includes("adventure")) setTheme("adventure");
-    else if (vibes.includes("beach")) setTheme("beach");
-    else if (vibes.includes("nightlife")) setTheme("party");
-    else if (vibes.includes("culture")) setTheme("culture");
-    else setTheme("default");
-  }, [vibes]);
+    if (vibes.length > 0) {
+      updateTheme(vibes[0]);
+    }
+  }, [vibes, updateTheme]);
+
+  useEffect(() => {
+    // Load saved selections from Firestore
+    const fetchData = async () => {
+      if (!user) return;
+      const docRef = doc(db, "userSelections", user.uid);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        setGroupType(data.groupType || []);
+        setVibes(data.vibes || []);
+        setBudget(data.budget || []);
+        setFood(data.food || []);
+        setLanguages(data.languages || []);
+      }
+    };
+    fetchData();
+  }, [user]);
+
+  const saveSelections = async () => {
+    if (!user) return;
+    const docRef = doc(db, "userSelections", user.uid);
+    await setDoc(docRef, {
+      groupType,
+      vibes,
+      budget,
+      food,
+      languages,
+      updatedAt: new Date()
+    });
+  };
 
   const generatePrompt = () => {
     return `Plan a trip for a group type: ${groupType.join(", ")}, who enjoy ${vibes.join(", ")} with a budget of ${budget.join(", ")} per person. 
 They prefer food styles like ${food.join(", ")} and speak ${languages.join(", ")}.`;
   };
 
-  const handleGenerate = () => {
+  const handleGenerate = async () => {
     setLoading(true);
+    await saveSelections();
     setTimeout(() => {
       alert(generatePrompt());
       setLoading(false);
