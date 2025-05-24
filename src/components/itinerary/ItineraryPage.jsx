@@ -2,6 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import DayCard from './DayCard';
 import './ItineraryPage.css';
+import DayCardPro from './DayCardPro';
 
 export default function ItineraryPage() {
   const location = useLocation();
@@ -17,7 +18,7 @@ export default function ItineraryPage() {
       <p className="trip-dates">{itinerary.startDate} to {itinerary.endDate}</p>
 
       {itinerary.days.map((day, index) => (
-        <DayCard key={index} day={day} />
+        <DayCardPro key={index} day={day} />
       ))}
 
       <div className="total-expenses">
