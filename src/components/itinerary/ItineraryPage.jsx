@@ -1,9 +1,15 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import DayCard from './DayCard';
 import './ItineraryPage.css';
 
-export default function ItineraryPage({ itinerary }) {
-  if (!itinerary || !itinerary.days) return <div>No itinerary data available.</div>;
+export default function ItineraryPage() {
+  const location = useLocation();
+  const itinerary = location.state;
+
+  if (!itinerary || !itinerary.days || itinerary.days.length === 0) {
+    return <div style={{ textAlign: 'center', padding: '50px', color: 'white' }}>No itinerary data available.</div>;
+  }
 
   return (
     <div className="itinerary-page">
@@ -16,7 +22,11 @@ export default function ItineraryPage({ itinerary }) {
 
       <div className="total-expenses">
         <h2>Total Expenses</h2>
-        <pre>{JSON.stringify(itinerary.totalExpenses, null, 2)}</pre>
+        <ul>
+          {Object.entries(itinerary.totalExpenses || {}).map(([type, amount]) => (
+            <li key={type}>{type}: ₹{amount}</li>
+          ))}
+        </ul>
       </div>
     </div>
   );
