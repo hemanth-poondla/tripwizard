@@ -1,5 +1,5 @@
-
 import React, { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import MultiSelectCardSection from './MultiSelectCardSection';
 import {
   groupOptions,
@@ -20,6 +20,7 @@ export default function Wizard() {
   const [food, setFood] = useState([]);
   const [languages, setLanguages] = useState([]);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const { theme, updateTheme } = useContext(ThemeContext);
   const db = getFirestore();
@@ -33,7 +34,6 @@ export default function Wizard() {
   }, [vibes, updateTheme]);
 
   useEffect(() => {
-    // Load saved selections from Firestore
     const fetchData = async () => {
       if (!user) return;
       const docRef = doc(db, "userSelections", user.uid);
@@ -51,7 +51,12 @@ export default function Wizard() {
   }, [user]);
 
   const saveSelections = async () => {
-    if (!user) return;
+  if (!user || !user.uid) {
+    console.warn("🛑 No user authenticated. Skipping Firestore save.");
+    return;
+  }
+
+  try {
     const docRef = doc(db, "userSelections", user.uid);
     await setDoc(docRef, {
       groupType,
@@ -61,7 +66,11 @@ export default function Wizard() {
       languages,
       updatedAt: new Date()
     });
-  };
+  } catch (err) {
+    console.error("❌ Firestore write failed:", err);
+  }
+};
+
 
   const generatePrompt = () => {
     return `Plan a trip for a group type: ${groupType.join(", ")}, who enjoy ${vibes.join(", ")} with a budget of ${budget.join(", ")} per person. 
@@ -69,12 +78,26 @@ They prefer food styles like ${food.join(", ")} and speak ${languages.join(", ")
   };
 
   const handleGenerate = async () => {
+    console.log("🔥 CURRENT USER:", user);
     setLoading(true);
     await saveSelections();
-    setTimeout(() => {
-      alert(generatePrompt());
-      setLoading(false);
-    }, 1500);
+
+    try {
+      const res = await fetch("https://tripwizard-backend-render.onrender.com/api/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: generatePrompt() })
+      });
+
+      const data = await res.json();
+      console.log("🎯 Generated Itinerary:", data);
+      navigate("/itinerary", { state: data }); // Navigate with data
+    } catch (err) {
+      console.error("🚨 Error calling itinerary API:", err);
+      alert("Something went wrong while generating itinerary.");
+    }
+
+    setLoading(false);
   };
 
   const handleLogout = () => {

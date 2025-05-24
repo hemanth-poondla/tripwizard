@@ -1,0 +1,39 @@
+.day-card {
+  background-color: #1f1f1f;
+  color: #f5f5f5;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.08);
+  max-width: 700px;
+}
+
+.day-card h2 {
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+}
+
+.day-card .day-date {
+  font-style: italic;
+  color: #c0c0c0;
+}
+
+.day-card .section {
+  margin-top: 16px;
+}
+
+.day-card .section h4 {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+  color: #e0e0e0;
+}
+
+.day-card ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  margin: 0;
+}
+
+.day-card p {
+  margin: 0;
+}

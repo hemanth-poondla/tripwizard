@@ -1,0 +1,29 @@
+.itinerary-page {
+  background-color: #121212;
+  color: #f0f0f0;
+  padding: 40px 20px;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.trip-title {
+  text-align: center;
+  font-size: 2.4rem;
+  margin-bottom: 10px;
+}
+
+.trip-dates {
+  text-align: center;
+  color: #bbbbbb;
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+}
+
+.total-expenses {
+  margin: 40px auto;
+  background-color: #202020;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 600px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+}

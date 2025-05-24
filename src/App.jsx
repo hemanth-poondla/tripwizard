@@ -8,6 +8,7 @@ import Wizard from "./components/itineraryWizard/Wizard";
 import Dashboard from "./components/dashboard/Dashboard";
 import { ThemeProvider } from "./context/ThemeContext";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import ItineraryPage from "./components/itinerary/ItineraryPage";
 
 const basename = process.env.NODE_ENV === "production" ? "/tripwizard" : "/";
 
@@ -40,6 +41,7 @@ function AppRoutes() {
       <Route path="/" element={<Landing />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+       <Route path="/itinerary" element={<ItineraryPage />} />
       <Route path="/wizard" element={
         <ProtectedRoute>
           <Wizard />
