@@ -59,7 +59,7 @@ function AppRoutes() {
 function App() {
   return (
     <ThemeProvider>
-      <Router basename={basename}>
+      <Router>
         <AppRoutes />
       </Router>
     </ThemeProvider>
