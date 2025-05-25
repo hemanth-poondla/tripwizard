@@ -13,7 +13,10 @@ import { ThemeContext } from '../../context/ThemeContext';
 import { getAuth } from 'firebase/auth';
 import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore';
 
+import WizardMetaSection from './WizardMetaSection';
+
 export default function Wizard() {
+  const [metaData, setMetaData] = useState(null);
   const [groupType, setGroupType] = useState([]);
   const [vibes, setVibes] = useState([]);
   const [budget, setBudget] = useState([]);
@@ -104,6 +107,10 @@ They prefer food styles like ${food.join(", ")} and speak ${languages.join(", ")
     localStorage.clear();
     window.location.href = "/login";
   };
+
+  if (!metaData) {
+    return <WizardMetaSection onMetaChange={setMetaData} />;
+  }
 
   return (
     <div className={`wizard-page ${theme}`}>
