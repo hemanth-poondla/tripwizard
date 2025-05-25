@@ -1,5 +1,6 @@
 import React from 'react';
 import './TripOverview.css';
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
 
 export default function TripOverview({ itinerary }) {
   const {
@@ -10,15 +11,38 @@ export default function TripOverview({ itinerary }) {
     mustTryFoods = [],
     spotifyPlaylist,
     emergencyContacts = {},
-    photos = []
+    photos = [],
+    totalExpenses = {}
   } = itinerary;
+
+  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+
+  const pieData = Object.entries(totalExpenses).map(([name, value]) => ({
+    name: name.charAt(0).toUpperCase() + name.slice(1),
+    value
+  }));
+
+  const renderCustomizedLabel = ({
+    cx, cy, midAngle, innerRadius, outerRadius, percent
+  }) => {
+    const RADIAN = Math.PI / 180;
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+    return (
+      <text x={x} y={y} fill="white" textAnchor="middle" dominantBaseline="central">
+        {`${(percent * 100).toFixed(0)}%`}
+      </text>
+    );
+  };
 
   return (
     <div className="trip-overview">
       {photos.length > 0 && (
         <div
           className="trip-banner"
-          style={{ backgroundImage: `url(\${photos[0]})` }}
+          style={{ backgroundImage: `url(${photos[0]})` }}
         >
           <div className="trip-banner-overlay">
             <h1>🌍 {destination}</h1>

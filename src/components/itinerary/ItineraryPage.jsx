@@ -3,13 +3,18 @@ import { useLocation } from 'react-router-dom';
 import './ItineraryPage.css';
 import DayCardPro from './DayCardPro';
 import TripOverview from './TripOverview';
+import TotalExpenseSection from './TotalExpenseSection'; // 👈 import the new chart section
 
 export default function ItineraryPage() {
   const location = useLocation();
   const itinerary = location.state;
 
   if (!itinerary || !itinerary.days || itinerary.days.length === 0) {
-    return <div style={{ textAlign: 'center', padding: '50px', color: 'white' }}>No itinerary data available.</div>;
+    return (
+      <div style={{ textAlign: 'center', padding: '50px', color: 'white' }}>
+        No itinerary data available.
+      </div>
+    );
   }
 
   return (
@@ -19,23 +24,14 @@ export default function ItineraryPage() {
         {itinerary.startDate} to {itinerary.endDate}
       </p>
 
-      <TripOverview itinerary={itinerary} /> {/* 🔥 NEW BLOCK */}
+      <TripOverview itinerary={itinerary} />
+
       {itinerary.days.map((day, index) => (
         <DayCardPro key={index} day={day} />
       ))}
-      
-      <div className="total-expenses">
-        <h2>Total Expenses</h2>
-        <ul>
-          {Object.entries(itinerary.totalExpenses || {}).map(
-            ([type, amount]) => (
-              <li key={type}>
-                {type}: ₹{amount}
-              </li>
-            )
-          )}
-        </ul>
-      </div>
+
+      {/* 👇 Replace your manual expenses block with this sexy section */}
+      <TotalExpenseSection totalExpenses={itinerary.totalExpenses} />
     </div>
   );
 }
