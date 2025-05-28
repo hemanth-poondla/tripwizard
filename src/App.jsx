@@ -10,7 +10,7 @@ import { ThemeProvider } from "./context/ThemeContext";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/common/PrivateRoute"; // ⬅️ NEW clean modular route protection
 
-const basename = process.env.NODE_ENV === "production" ? "/tripwizard" : "/";
+const basename = process.env.REACT_APP_BASENAME || "/";
 
 function AppRoutes() {
   return (
