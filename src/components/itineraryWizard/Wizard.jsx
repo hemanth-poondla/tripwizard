@@ -10,7 +10,7 @@ import {
 } from './optionsData';
 import './SectionStyles.css';
 import { ThemeContext } from '../../context/ThemeContext';
-import { getAuth } from 'firebase/auth';
+import { getAuth, signOut } from 'firebase/auth';
 import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore';
 
 import WizardMetaSection from './WizardMetaSection';
@@ -103,9 +103,14 @@ They prefer food styles like ${food.join(", ")} and speak ${languages.join(", ")
     setLoading(false);
   };
 
-  const handleLogout = () => {
-    localStorage.clear();
-    window.location.href = "/login";
+  const handleLogout = async () => {
+    try {
+      await signOut(auth); // Firebase logout
+      localStorage.clear(); // Optional cleanup
+      navigate("/login"); // Clean redirect
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
   };
 
   if (!metaData) {

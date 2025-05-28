@@ -1,5 +1,7 @@
+
 import React, { useState } from 'react';
 import './WizardMetaStyles.css';
+import { isFutureDate } from "../../utils/dateValidator";
 
 export default function WizardMetaSection({ onMetaChange }) {
   const [origin, setOrigin] = useState('');
@@ -24,6 +26,8 @@ export default function WizardMetaSection({ onMetaChange }) {
   };
 
   const canContinue = origin && tripType && startDate && endDate && peopleCount > 0;
+
+  const today = new Date().toISOString().split("T")[0]; // for min attribute
 
   return (
     <div className="wizard-meta-bg">
@@ -62,10 +66,10 @@ export default function WizardMetaSection({ onMetaChange }) {
         )}
 
         <label>Start Date</label>
-        <input type="date" className="wizard-meta-input" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
+        <input type="date" className="wizard-meta-input" value={startDate} onChange={(e) => setStartDate(e.target.value)} min={today} />
 
         <label>End Date</label>
-        <input type="date" className="wizard-meta-input" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
+        <input type="date" className="wizard-meta-input" value={endDate} onChange={(e) => setEndDate(e.target.value)} min={startDate || today} />
 
         <label>No. of people</label>
         <input type="number" className="wizard-meta-input" value={peopleCount} onChange={(e) => setPeopleCount(Number(e.target.value))} min="1" max="20" />
