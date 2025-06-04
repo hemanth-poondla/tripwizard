@@ -29,6 +29,7 @@ export default function Wizard() {
   const db = getFirestore();
   const auth = getAuth();
   const user = auth.currentUser;
+  const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
   useEffect(() => {
     if (vibes.length > 0) {
@@ -86,7 +87,7 @@ They prefer food styles like ${food.join(", ")} and speak ${languages.join(", ")
     await saveSelections();
 
     try {
-      const res = await fetch("https://tripwizard-backend-render.onrender.com/api/generate", {
+      const res = await fetch(`${API_BASE_URL}/api/generate`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ prompt: generatePrompt() })
