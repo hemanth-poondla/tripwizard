@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import './ItineraryPage.css';
 import DayCardPro from './DayCardPro';
 import TripOverview from './TripOverview';
-import TotalExpenseSection from './TotalExpenseSection'; // 👈 import the new chart section
+import TotalExpenseSection from './TotalExpenseSection';
+import { calculateDailyBalances, simplifySettlements } from '../../utils/expenseUtils';
 
 export default function ItineraryPage() {
   const location = useLocation();
   const itinerary = location.state;
+
+  const [showFinalPayoffs, setShowFinalPayoffs] = useState(false);
+  const [finalSettlements, setFinalSettlements] = useState([]);
 
   if (!itinerary || !itinerary.days || itinerary.days.length === 0) {
     return (
@@ -16,6 +20,25 @@ export default function ItineraryPage() {
       </div>
     );
   }
+
+  const updateDayExpenses = (index, expenses) => {
+    itinerary.days[index].expenses = expenses;
+  };
+
+  const handleFinalPayoffs = () => {
+    const allExpenses = [];
+    itinerary.days.forEach(day => {
+      if (Array.isArray(day.expenses)) {
+        allExpenses.push(...day.expenses);
+      }
+    });
+
+    const members = ["Hemanth", "Mahesh", "Akhil", "Vinay", "Lik"];
+    const balances = calculateDailyBalances(allExpenses, members);
+    const settlements = simplifySettlements(balances);
+    setFinalSettlements(settlements);
+    setShowFinalPayoffs(true);
+  };
 
   return (
     <div className="itinerary-page">
@@ -27,11 +50,33 @@ export default function ItineraryPage() {
       <TripOverview itinerary={itinerary} />
 
       {itinerary.days.map((day, index) => (
-        <DayCardPro key={index} day={day} groupSize={itinerary.groupSize} />
+        <DayCardPro
+          key={index}
+          day={day}
+          dayIndex={index}
+          updateExpenses={updateDayExpenses}
+        />
       ))}
 
-      {/* 👇 Replace your manual expenses block with this sexy section */}
       <TotalExpenseSection totalExpenses={itinerary.totalExpenses} />
+
+      <div className="final-trip-expense-summary">
+        <button className="calculate-btn" onClick={handleFinalPayoffs}>💰 Final Trip Settlement</button>
+        {showFinalPayoffs && (
+          <div className="final-settlement-block">
+            <h4>Final Payoffs</h4>
+            {finalSettlements.length === 0 ? (
+              <p className="no-dues">✅ No dues left!</p>
+            ) : (
+              <ul>
+                {finalSettlements.map((s, i) => (
+                  <li key={i}>{s.from} ➡️ {s.to}: ₹{s.amount}</li>
+                ))}
+              </ul>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

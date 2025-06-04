@@ -1,0 +1,91 @@
+
+.expense-split-ui {
+  margin-top: 16px;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+.add-expense-btn {
+  background-color: #4f46e5;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background 0.3s ease;
+  margin-bottom: 16px;
+}
+
+.add-expense-btn:hover {
+  background-color: #4338ca;
+}
+
+.expense-entry-card {
+  background-color: #1f1f1f;
+  padding: 18px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+}
+
+.expense-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.expense-label {
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: #f3f4f6;
+}
+
+.total-input {
+  padding: 6px 10px;
+  font-size: 0.95rem;
+  border-radius: 6px;
+  border: 1px solid #aaa;
+  width: 100px;
+  background-color: #2d2d2d;
+  color: #fff;
+}
+
+.remove-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.1rem;
+  color: #e53e3e;
+  margin-left: auto;
+  cursor: pointer;
+}
+
+.split-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.split-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.95rem;
+}
+
+.member-name {
+  flex: 1;
+  color: #ddd;
+}
+
+.amount-input {
+  padding: 6px 10px;
+  width: 120px;
+  font-size: 0.95rem;
+  border-radius: 6px;
+  border: 1px solid #aaa;
+  background-color: #2b2b2b;
+  color: #f0f0f0;
+}

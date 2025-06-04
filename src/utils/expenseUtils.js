@@ -1,6 +1,5 @@
-
-// Calculate balances for a single day of expenses
-export const calculateDailyBalances = (expenses, members) => {
+// 🔁 Calculate balances for a single day of expenses
+export const calculateDailyBalances = (expenses = [], members = []) => {
   const balanceSheet = {};
 
   members.forEach(member => {
@@ -8,17 +7,22 @@ export const calculateDailyBalances = (expenses, members) => {
   });
 
   expenses.forEach(exp => {
-    if (exp.paidBy && balanceSheet[exp.paidBy]) {
-      balanceSheet[exp.paidBy].paid += parseFloat(exp.totalAmount || 0);
+    const paidBy = exp?.paidBy;
+    const totalAmount = parseFloat(exp?.total || 0);
+    const amounts = exp?.split || [];
+
+    if (paidBy && balanceSheet[paidBy]) {
+      balanceSheet[paidBy].paid += totalAmount;
     }
-    Object.entries(exp.amounts).forEach(([member, amount]) => {
-      if (balanceSheet[member]) {
-        balanceSheet[member].owes += parseFloat(amount || 0);
+
+    amounts.forEach(split => {
+      const { name, amount } = split;
+      if (balanceSheet[name]) {
+        balanceSheet[name].owes += parseFloat(amount || 0);
       }
     });
   });
 
-  // Compute final balance (paid - owes)
   Object.entries(balanceSheet).forEach(([member, data]) => {
     data.balance = data.paid - data.owes;
   });
@@ -26,18 +30,16 @@ export const calculateDailyBalances = (expenses, members) => {
   return balanceSheet;
 };
 
-
-// Simplify debts to show net settlements only
-export const simplifySettlements = (balances) => {
+// 🔽 Clean and simplify net settlements
+export const simplifySettlements = (balances = {}) => {
   const settlements = [];
   const members = Object.keys(balances);
 
   const net = members.map(member => ({
     name: member,
-    balance: balances[member].balance
+    balance: parseFloat(balances[member]?.balance || 0)
   }));
 
-  // Split creditors and debtors
   const creditors = net.filter(p => p.balance > 0).sort((a, b) => b.balance - a.balance);
   const debtors = net.filter(p => p.balance < 0).sort((a, b) => a.balance - b.balance);
 
@@ -47,11 +49,13 @@ export const simplifySettlements = (balances) => {
     const creditor = creditors[j];
     const amount = Math.min(creditor.balance, -debtor.balance);
 
-    settlements.push({
-      from: debtor.name,
-      to: creditor.name,
-      amount: parseFloat(amount.toFixed(2))
-    });
+    if (amount >= 0.01) {
+      settlements.push({
+        from: debtor.name,
+        to: creditor.name,
+        amount: Math.round(amount)
+      });
+    }
 
     debtor.balance += amount;
     creditor.balance -= amount;
