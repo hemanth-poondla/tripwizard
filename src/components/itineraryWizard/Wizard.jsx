@@ -29,7 +29,7 @@ export default function Wizard() {
   const db = getFirestore();
   const auth = getAuth();
   const user = auth.currentUser;
-  const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+  const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5000"; // set REACT_APP_API_URL in render- env variables. since it is not defined here, localhost is always hit in local build.
 
   useEffect(() => {
     if (vibes.length > 0) {
