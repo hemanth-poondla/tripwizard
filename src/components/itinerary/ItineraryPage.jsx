@@ -27,7 +27,7 @@ export default function ItineraryPage() {
       <TripOverview itinerary={itinerary} />
 
       {itinerary.days.map((day, index) => (
-        <DayCardPro key={index} day={day} />
+        <DayCardPro key={index} day={day} groupSize={itinerary.groupSize} />
       ))}
 
       {/* 👇 Replace your manual expenses block with this sexy section */}
