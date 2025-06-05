@@ -30,6 +30,7 @@ export const calculateDailyBalances = (expenses = [], members = []) => {
   return balanceSheet;
 };
 
+
 // 🔽 Clean and simplify net settlements
 export const simplifySettlements = (balances = {}) => {
   const settlements = [];
@@ -53,7 +54,7 @@ export const simplifySettlements = (balances = {}) => {
       settlements.push({
         from: debtor.name,
         to: creditor.name,
-        amount: Math.round(amount)
+        amount: parseFloat((amount).toFixed(2)) // ✅ keep 2 decimals, no rounding up to int
       });
     }
 

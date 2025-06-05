@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import './DayCardPro.css';
 import ExpenseSplit from './ExpenseSplit';
 import { calculateDailyBalances, simplifySettlements } from '../../utils/expenseUtils';
+import { truncateTo2Decimals } from '../../utils/numberUtils';
 
 export default function DayCardPro({ day, dayIndex, updateExpenses }) {
   const [blogNote, setBlogNote] = useState("");
   const [expenses, setExpenses] = useState([]);
   const [settlements, setSettlements] = useState([]);
 
-  const members = ["Hemanth", "Mahesh", "Akhil", "Vinay", "Lik"];
+  const members = ["Hemanth", "Mahesh", "Akhil", "Vinay", "Lik", "VVP"];
 
   useEffect(() => {
     const balances = calculateDailyBalances(expenses || [], members);
@@ -54,7 +55,9 @@ export default function DayCardPro({ day, dayIndex, updateExpenses }) {
         ) : (
           <ul>
             {settlements.map((s, i) => (
-              <li key={i}>{s.from} ➡️ {s.to}: ₹{s.amount}</li>
+              <li key={i}>
+                {s.from} ➡️ {s.to}: ₹{parseFloat(s.amount).toFixed(2)}
+              </li>
             ))}
           </ul>
         )}

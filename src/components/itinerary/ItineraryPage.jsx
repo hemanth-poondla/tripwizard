@@ -33,7 +33,7 @@ export default function ItineraryPage() {
       }
     });
 
-    const members = ["Hemanth", "Mahesh", "Akhil", "Vinay", "Lik"];
+    const members = ["Hemanth", "Mahesh", "Akhil", "Vinay", "Lik", "VVP"];
     const balances = calculateDailyBalances(allExpenses, members);
     const settlements = simplifySettlements(balances);
     setFinalSettlements(settlements);
