@@ -1,9 +1,9 @@
-
 .expense-split-ui {
   margin-top: 16px;
   font-family: 'Inter', 'Segoe UI', sans-serif;
 }
 
+/* ---------- Buttons ---------- */
 .add-expense-btn {
   background-color: #4f46e5;
   color: white;
@@ -20,6 +20,26 @@
   background-color: #4338ca;
 }
 
+.remove-btn,
+.remove-btn-enhanced,
+.delete-header-btn {
+  background: transparent;
+  border: none;
+  color: #f87171;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 6px;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.remove-btn-enhanced:hover,
+.delete-header-btn:hover {
+  color: #ef4444;
+  background-color: rgba(255, 0, 0, 0.06);
+  border-radius: 6px;
+}
+
+/* ---------- Card Layout ---------- */
 .expense-entry-card {
   background: linear-gradient(145deg, #202020, #1a1a1a);
   padding: 18px;
@@ -35,23 +55,47 @@
   box-shadow: 0 10px 20px rgba(255,255,255,0.06);
 }
 
+/* ---------- Summary Header ---------- */
 .expense-summary-header {
-  font-size: 1rem;
-  color: #f4f4f4;
-  font-weight: 500;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  background-color: #292929;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 0.95rem;
   cursor: pointer;
-  padding-bottom: 8px;
-  border-bottom: 1px solid #444;
-  margin-bottom: 10px;
+  transition: background 0.2s;
+  color: #f1f1f1;
+  position: relative;
+}
+
+.expense-summary-header strong {
+  flex: 1 1 auto;
+  min-width: 150px;
+  word-break: break-word;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #ffffff;
+}
+
+.expense-summary-header span {
+  white-space: nowrap;
+  color: #ccc;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  text-align: right;
 }
 
 .toggle-arrow {
+  margin-left: 10px;
   font-size: 0.9rem;
   color: #aaa;
 }
 
+/* ---------- Form Fields ---------- */
 .description-input {
   width: 100%;
   padding: 8px 12px;
@@ -64,10 +108,18 @@
 
 .expense-header {
   display: flex;
-  align-items: center;
-  gap: 12px;
   flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
   margin-bottom: 14px;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 150px;
 }
 
 .expense-label {
@@ -95,14 +147,7 @@
   color: #f8f8f8;
 }
 
-.remove-btn {
-  background: transparent;
-  border: none;
-  font-size: 1.1rem;
-  color: #f87171;
-  cursor: pointer;
-}
-
+/* ---------- Split Section ---------- */
 .split-inputs {
   display: flex;
   flex-direction: column;
@@ -130,70 +175,4 @@
   border: 1px solid #555;
   background-color: #2b2b2b;
   color: #f0f0f0;
-}
-
-.expense-summary-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #f1f1f1;
-  background-color: #292929;
-  padding: 10px 14px;
-  border-radius: 6px;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: background 0.2s;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.expense-summary-header strong {
-  flex: 1 1 auto;
-  min-width: 150px;
-  word-break: break-word;
-  color: #ffffff;
-  font-weight: 600;
-  font-size: 1rem;
-}
-
-.expense-summary-header span {
-  white-space: nowrap;
-  color: #ccc;
-  font-size: 0.9rem;
-}
-
-.toggle-arrow {
-  margin-left: 10px;
-}
-
-.expense-summary-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  color: #f1f1f1;
-  background-color: #292929;
-  padding: 10px 14px;
-  border-radius: 6px;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: background 0.2s;
-  gap: 10px;
-}
-
-.expense-summary-header strong {
-  max-width: 75%;
-  word-wrap: break-word;
-  flex: 1;
-  font-weight: 600;
-  font-size: 1rem;
-  line-height: 1.4;
-  color: #ffffff;
-}
-
-.expense-summary-header span {
-  white-space: nowrap;
-  color: #ccc;
-  font-size: 0.9rem;
-  flex-shrink: 0;
-  text-align: right;
 }
