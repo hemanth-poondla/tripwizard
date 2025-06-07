@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React from 'react'
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { useState } from "react";
 import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth } from "../../firebase";
 import { Link, useNavigate } from "react-router-dom";
@@ -44,7 +47,7 @@ export default function Login() {
       <div className="auth-box glass">
         <h2>Login to TripWizard</h2>
         <form onSubmit={handleLogin}>
-          <input
+          <Input
             type="email"
             placeholder="Email"
             value={email}
@@ -53,7 +56,7 @@ export default function Login() {
           />
 
           <div className="password-field">
-            <input
+            <Input
               type={showPassword ? "text" : "password"}
               placeholder="Password"
               value={password}
@@ -70,12 +73,12 @@ export default function Login() {
           </div>
 
           {error && <p className="error">{error}</p>}
-          <button type="submit" className="btn-cta">Login</button>
+          <Button type="submit" className="btn-cta">Login</Button>
         </form>
 
-        <button onClick={handleGoogleLogin} className="btn-google">
+        <Button onClick={handleGoogleLogin} className="btn-google">
           <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="google" /> Login with Google
-        </button>
+        </Button>
 
         <p className="auth-switch">
           New here? <Link to="/register">Create an account</Link>

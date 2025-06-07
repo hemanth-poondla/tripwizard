@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React from 'react'
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { useState } from "react";
 import { Trash2, CheckSquare, Square } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import ConfirmDialog from "../ConfirmDialog/ConfirmDialog";
@@ -87,9 +90,9 @@ export default function ExpenseSplit({ members, expenses, setExpenses }) {
 
   return (
     <div className="expense-split-ui">
-      <button onClick={addExpense} className="add-expense-btn">
+      <Button onClick={addExpense} className="add-expense-btn">
         ➕ Add Expense
-      </button>
+      </Button>
 
       <AnimatePresence>
         {expenses.map((exp, idx) => {
@@ -110,7 +113,7 @@ export default function ExpenseSplit({ members, expenses, setExpenses }) {
                 <strong>{exp.description || "Untitled Expense"}</strong>
                 <span>💰 {exp.total || 0} | 👤 {exp.paidBy}</span>
                 <span className="toggle-arrow">{expandedIndex === idx ? "▲" : "▼"}</span>
-                <button
+                <Button
                   className="delete-header-btn"
                   title="Delete this expense"
                   onClick={(e) => {
@@ -119,12 +122,12 @@ export default function ExpenseSplit({ members, expenses, setExpenses }) {
                   }}
                 >
                   <Trash2 size={18} />
-                </button>
+                </Button>
               </div>
 
               {expandedIndex === idx && (
                 <div className="expense-details">
-                  <input
+                  <Input
                     type="text"
                     value={exp.description}
                     onChange={(e) => updateExpense(idx, "description", e.target.value)}
@@ -148,7 +151,7 @@ export default function ExpenseSplit({ members, expenses, setExpenses }) {
 
                     <div className="field-group">
                       <label className="expense-label">Total:</label>
-                      <input
+                      <Input
                         type="number"
                         value={exp.total}
                         onChange={(e) => updateExpense(idx, "total", e.target.value)}
@@ -172,7 +175,7 @@ export default function ExpenseSplit({ members, expenses, setExpenses }) {
                     {exp.split.map((entry, memberIdx) => (
                       <div key={memberIdx} className="split-row">
                         <span className="member-name">{entry.name}</span>
-                        <input
+                        <Input
                           type="number"
                           value={entry.amount}
                           onChange={(e) => updateSplit(idx, memberIdx, e.target.value)}

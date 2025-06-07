@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React from 'react'
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 import { Link, useNavigate } from "react-router-dom";
@@ -34,7 +37,7 @@ export default function Register() {
       <div className="auth-box glass">
         <h2>Create Your Account</h2>
         <form onSubmit={handleRegister}>
-          <input
+          <Input
             type="email"
             placeholder="Email"
             required
@@ -43,7 +46,7 @@ export default function Register() {
           />
 
           <div className="password-field">
-            <input
+            <Input
               type={showPassword ? "text" : "password"}
               placeholder="Password (min 6 characters)"
               required
@@ -60,7 +63,7 @@ export default function Register() {
           </div>
 
           {error && <p className="error">{error}</p>}
-          <button type="submit" className="btn-cta">Register</button>
+          <Button type="submit" className="btn-cta">Register</Button>
         </form>
 
         <p className="auth-switch">

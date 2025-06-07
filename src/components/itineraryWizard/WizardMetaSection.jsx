@@ -1,5 +1,7 @@
 
-import React, { useState } from 'react';
+import React from 'react'
+import { Button } from "@/components/ui/button"
+import { useState } from 'react';
 import './WizardMetaStyles.css';
 import { isFutureDate } from "../../utils/dateValidator";
 
@@ -77,16 +79,16 @@ export default function WizardMetaSection({ onMetaChange }) {
         <label>Invite your gang</label>
         <div className="wizard-invite-box">
           <input type="text" className="wizard-meta-input" readOnly value={inviteLink} />
-          <button className="wizard-copy-btn" onClick={() => navigator.clipboard.writeText(inviteLink)}>📋</button>
+          <Button className="wizard-copy-btn" onClick={() => navigator.clipboard.writeText(inviteLink)}>📋</Button>
         </div>
 
-        <button
+        <Button
           className={`wizard-meta-btn ${!canContinue ? 'disabled' : ''}`}
           disabled={!canContinue}
           onClick={handleSubmit}
         >
           ✅ Continue
-        </button>
+        </Button>
       </div>
     </div>
   );

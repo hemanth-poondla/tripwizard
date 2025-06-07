@@ -51,6 +51,24 @@ select {
   margin-top: 6px;
 }
 
+select option {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.6);
+  border: none;
+  font-size: 15px;
+  padding: 12px;
+  transition: all 0.2s ease-in-out;
+}
+
+select option:hover,
+select option:checked {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  outline: 1px solid rgba(255, 255, 255, 0.5); /* simulate a border */
+}
+
+
+
 .wizard-meta-input::placeholder {
   color: rgba(255, 255, 255, 0.7);
 }
